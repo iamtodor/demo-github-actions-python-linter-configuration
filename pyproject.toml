@@ -1,0 +1,63 @@
+[tool.black]
+line-length = 120
+target-version = ['py37']
+exclude = '''
+/(
+    \.git
+  | \.github
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.idea
+  | \.?v?env
+  | \.local
+  | makefile\.inc
+  | venv_linter
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = 'black'
+line_length = 120
+skip_glob = ['.local']
+use_parentheses = true
+#force_grip_wrap = 0
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.flakeheaven]
+exclude = [
+    ".history",
+    ".venv",
+    ".env",
+    "venv",
+    "venv_linter",
+    "env"
+]
+format = "grouped"
+max_line_length = 120
+show_source = true
+extended_default_ignore = []
+
+[tool.flakeheaven.plugins]
+# default plugins
+pyflakes = ["+*"]
+pycodestyle = ["+*"]
+# additional plugins
+flake8 = ["+*"]
+pylint = [
+    "+*", # include everything
+    "-C0114", # disable Missing module docstring (missing-module-docstring)
+    "-C0116", # disable Missing function or method docstring  (missing-function-docstring)
+    "-E0401", # disable Unable to import 'library' (import-error)
+]
+
+# match by prefix
+[tool.flakeheaven.exceptions."dags/"]
+pycodestyle = [
+    "-W503" # disable line break before binary operator
+]
+pylint = [
+    "-W0104" # disable statement seems to have no effect (pointless-statement)
+]

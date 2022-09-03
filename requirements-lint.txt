@@ -1,0 +1,4 @@
+black==22.8.0
+flake8==4.0.1
+flakeheaven==3.0.0
+pylint==2.15.0
