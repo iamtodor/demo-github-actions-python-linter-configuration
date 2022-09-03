@@ -3,7 +3,6 @@ from utils import custom_sum
 
 def main():
     result_sum = custom_sum(1, 2)
-    # TODO
     _ = 1 + result_sum
 
 
