@@ -1,4 +1,4 @@
-from utils import custom_sum, custom_multiplication
+from utils import custom_multiplication, custom_sum
 
 
 def test_custom_sum():
