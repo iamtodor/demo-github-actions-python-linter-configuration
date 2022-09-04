@@ -46,6 +46,8 @@ pyflakes = ["+*"]
 pycodestyle = ["+*"]
 # additional plugins
 flake8 = ["+*"]
+# enable everything that starts from `flake8-`
+"flake8-*" = ["+*"]
 pylint = [
     "+*", # include everything
     "-C0114", # disable Missing module docstring (missing-module-docstring)
