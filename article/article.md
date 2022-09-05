@@ -62,7 +62,7 @@ dags/dummy.py
 However, we want to keep each task specified in a new line, hence we need to disable `W503` from pycodestyle: Disable
 line break before binary operator.
 
-![disable W503](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/diable-line-break.png?raw=true)
+![disable W503](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-diable-line-break-W503.png?raw=true)
 
 Next, with the default configuration we would get the next warning:
 
@@ -120,11 +120,11 @@ I define the variable where I can find the output (the only `.py` files) from th
 
 The next and last step is to run the linter itself.
 
-![run linter step](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-run-linter.png?raw=true)
+![run linter step](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-run-linter-step.png?raw=true)
 
 Before we run linter on changed files we run a check if there is an actual change in `.py` files, if there are any `.py` files from the previous step.
 
-![check if there are .py files](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-check-for-changes.png?raw=true)
+![check if there are .py files](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-run-linter-check-for-changes.png?raw=true)
 
 Next, using the before-mentioned output variable we can safety pass the content from this `steps.filter.outputs.py_scripts_filter_files` variable to linter.
 
