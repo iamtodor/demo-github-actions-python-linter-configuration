@@ -43,8 +43,7 @@ Firstly, we need to exclude `W0104` from pylint: Statement seems to have no effe
 
 Then we want to have each task be specified in a new line, hence we need to disable `W503` from pycodestyle: Disable line break before binary operator.
 
-## TODO
-![flakeheaven disable import checks](https://i.imgur.com/mYVC7fj.png)
+![disable W503](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/diable-line-break.png?raw=true)
 
 ## GitHub actions configurations
 
@@ -69,14 +68,16 @@ We are interested in running linter only when PR has `.py` files. For instance, 
 
 We are interested in running a linter only against the modified files. Let's say, we take a look at the provided repo, if I update `dags/dummy.py` I don't want to waste a time and resources running linter against `main.py`. For this purpose we use [Paths Filter GitHub Action](https://github.com/dorny/paths-filter), that is very flexible.
 
-If we have in one PR modified `.py` and `.toml` files, we don't want to run linter against `.toml`, so we use  where we configured filtering only for `.py` files no matter its location: root, tests, src, etc.
+![Paths Filter GitHub Action](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/check-for-python-file-changes.png?raw=true)
 
-![Paths Filter GitHub Action](https://i.imgur.com/B9lu9ki.png)
+If we have in one PR modified `.py` and any other files such as `.toml`, we don't want to run linter against not `.py`, so we use  where we configured filtering only for `.py` files no matter its location: root, tests, src, etc.
 
-As a changed file can be `added`, `modified`, or `deleted`, there is no reason to run a linter against deleted file as your workflow would simply fail as there is no more than that particular changed file. So we need to configure what changes we consider to trigger linter.
+Changed file can have the following statuses `added`, `modified`, or `deleted`. There is no reason to run a linter against deleted file as your workflow would simply fail, because there is no more that particular changed file in repo. So we need to configure what changes we consider to trigger linter.
 
-![added|modified](https://i.imgur.com/YBrd8Ee.png)
+![added|modified](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/added-modified.png?raw=true)
 
 I define the variable where I can find the output (the only `.py` files) from the previous filter. This variable would contain modified `.py` files, that I can further pass to a `flakeheaven`, `black`, and `isort`. By default, the output is disabled, and Paths Changes Filter allows to customize it: you can list the files in `.csv`, `.json` or in a `shell` mode. Linters accept files separated simply by space, so our choise here is `shell` mode.
 
 ![list files shell](https://i.imgur.com/0HjT6Wg.png)
+
+## TODO add usage output
