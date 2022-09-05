@@ -8,10 +8,11 @@ exclude = '''
   | \.mypy_cache
   | \.pytest_cache
   | \.idea
-  | \.?v?env
+  | venv
+  | venv_linter
+  | venv_tests
   | \.local
   | makefile\.inc
-  | venv_linter
   | build
   | dist
 )/
@@ -20,20 +21,22 @@ exclude = '''
 [tool.isort]
 profile = 'black'
 line_length = 120
-skip_glob = ['.local']
+skip_glob = [
+    ".history",
+    "venv",
+    "venv_linter",
+    "venv_tests",
+]
 use_parentheses = true
-#force_grip_wrap = 0
 multi_line_output = 3
 include_trailing_comma = true
 
 [tool.flakeheaven]
 exclude = [
     ".history",
-    ".venv",
-    ".env",
     "venv",
     "venv_linter",
-    "env"
+    "venv_tests",
 ]
 format = "grouped"
 max_line_length = 120
