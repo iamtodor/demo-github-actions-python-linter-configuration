@@ -104,13 +104,13 @@ We are interested in running linter only when PR has `.py` files. For instance, 
 
 We are interested in running a linter only against the modified files. Let's say, we take a look at the provided repo, if I update `dags/dummy.py` I don't want to waste a time and resources running linter against `main.py`. For this purpose we use [Paths Filter GitHub Action](https://github.com/dorny/paths-filter), which is very flexible.
 
-![Paths Filter GitHub Action](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/check-for-python-file-changes.png?raw=true)
+![Paths Filter GitHub Action](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-paths-filter.png?raw=true)
 
 If we have in one PR modified `.py` and any other files such as `.toml`, we don't want to run linter against not `.py`, so we use where we configured filtering only for `.py` files no matter its location: root, tests, src, etc.
 
 The changed file can have the following statuses `added`, `modified`, or `deleted`. There is no reason to run a linter against deleted files as your workflow would simply fail, because there is no more that particular changed file in the repo. So we need to configure what changes we consider to trigger linter.
 
-![added|modified](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/added-modified.png?raw=true)
+![added|modified](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-added-modified.png?raw=true)
 
 I define the variable where I can find the output (the only `.py` files) from the previous filter. This variable would contain modified `.py` files, that I can further pass to a `flakeheaven`, `black`, and `isort`. By default, the output is disabled, and Paths Changes Filter allows you to customize it: you can list the files in `.csv`, `.json`, or in a `shell` mode. Linters accept files separated simply by space, so our choice here is `shell` mode.
 
