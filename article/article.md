@@ -17,8 +17,6 @@ This article has two major parts: the first one is linter configuration, and the
 
 ## Linters configuration
 
-**Disclaimer**: author assumes you are familiar with the above-mentioned linters, tools, and checks.
-
 Here are the linters and checks we are going to use:
 
 - [flake8](https://flake8.pycqa.org/en/latest/)
@@ -26,9 +24,11 @@ Here are the linters and checks we are going to use:
 - [black](https://github.com/psf/black)
 - [isort](https://github.com/PyCQA/isort)
 
+**Disclaimer**: author assumes you are familiar with the above-mentioned linters, tools, and checks.
+
 I would like to share how to configure it for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/github-actions-python-demo).
 
-We use flakeheaven as a flake8 wrapper, which is very easy to configure in one single `pyproject.toml`. The whole `pyproject.toml` configuration file could be found in
+We use `flakeheaven` as a `flake8` wrapper, which is very easy to configure in one single `pyproject.toml`. The whole `pyproject.toml` configuration file could be found in
 a [repo](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/pyproject.toml).
 
 ![pyproject.toml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-pyproject-config.png?raw=true)
@@ -41,7 +41,23 @@ A few checks that we don't want to see complain about:
 
 #### Documentation
 
-We are ok if not every module will be documented. We are ok if not every function or method will be documented.
+Default `flakeheaven` configuration assumes every component is documented.
+
+```
+>>> python -m flakeheaven lint utils.py
+
+utils.py
+     1:   1 C0114 Missing module docstring (missing-module-docstring) [pylint]
+  def custom_sum(first: int, second: int) -> int:
+  ^
+     1:   1 C0116 Missing function or method docstring (missing-function-docstring) [pylint]
+  def custom_sum(first: int, second: int) -> int:
+  ^
+     5:   1 C0116 Missing function or method docstring (missing-function-docstring) [pylint]
+  def custom_multiplication(first: int, second: int) -> int:
+```
+
+We are ok if not every module will be documented. We are ok if not every function or method will be documented. We are not going to push documentation for documentation's sake. So we want to disable `C0114` and `C0116` checks from pylint.
 
 ![flakeheaven disable docs](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-docs.png?raw=true)
 
@@ -61,7 +77,7 @@ dags/dummy.py
   ^
 ```
 
-So we need to disable this check:
+So we need to disable `E0401` check from `pylint`.
 
 ![flakeheaven disable import checks](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-import-checks.png?raw=true)
 
