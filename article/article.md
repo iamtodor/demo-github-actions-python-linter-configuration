@@ -9,13 +9,13 @@ Recently I was involved in configuring linters as a part of CI/CD in GitHub acti
 
 I would like to share how to configure it for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/github-actions-python-demo).
 
-We use flakeheaven as flake8 wrapper, which is very easy to configure in one single `pyproject.toml` configuration file.
+We use flakeheaven as a flake8 wrapper, which is very easy to configure in one single `pyproject.toml` configuration file.
 The whole `pyproject.toml` configuration file could be found in
 a [repo](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/pyproject.toml).
 
 ![pyproject.toml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-pyproject-config.png?raw=true)
 
-Disclaimer: author assumes you are familiar with above-mentioned linters, tools, and checks. I would say the config file
+Disclaimer: author assumes you are familiar with the above-mentioned linters, tools, and checks. I would say the config file
 is self-explainable, so I will not stop here for a while. Just a few notes about tiny tweaks.
 
 A few checks that we don't want to see complain about:
@@ -38,7 +38,7 @@ not something we would like to put as a linter job.
 
 ### Tweaks for airflow code
 
-In order to configure code for Airflow DAGs there are also a few tweaks. Here is the dummy example `dummy.py`.
+To configure code for Airflow DAGs there are also a few tweaks. Here is the dummy example `dummy.py`.
 
 ![python dummy DAG](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/python-airflow-tasks-order.png?raw=true)
 
@@ -59,12 +59,12 @@ dags/dummy.py
   ^
 ```
 
-However, we want to keep each task be specified in a new line, hence we need to disable `W503` from pycodestyle: Disable
+However, we want to keep each task specified in a new line, hence we need to disable `W503` from pycodestyle: Disable
 line break before binary operator.
 
 ![disable W503](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/diable-line-break.png?raw=true)
 
-Next, with default configuration we would get the next warning:
+Next, with the default configuration we would get the next warning:
 
 ```
 python -m flakeheaven lint .                                                       
@@ -84,7 +84,7 @@ specify task order.
 
 **Disclaimer**: author assumes you are familiar with [GitHub actions](https://github.com/features/actions).
 
-We configure GitHub Workflow to be triggered on every PR against main (master) branch.
+We configure GitHub Workflow to be triggered on every PR against the main (master) branch.
 
 Here are the linters and checks we are going to use:
 
@@ -102,17 +102,17 @@ We are interested in running linter only when PR has `.py` files. For instance, 
 
 ![configure run workflow on PRs and push](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-py-push-pr.png?raw=true)
 
-We are interested in running a linter only against the modified files. Let's say, we take a look at the provided repo, if I update `dags/dummy.py` I don't want to waste a time and resources running linter against `main.py`. For this purpose we use [Paths Filter GitHub Action](https://github.com/dorny/paths-filter), that is very flexible.
+We are interested in running a linter only against the modified files. Let's say, we take a look at the provided repo, if I update `dags/dummy.py` I don't want to waste a time and resources running linter against `main.py`. For this purpose we use [Paths Filter GitHub Action](https://github.com/dorny/paths-filter), which is very flexible.
 
 ![Paths Filter GitHub Action](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/check-for-python-file-changes.png?raw=true)
 
 If we have in one PR modified `.py` and any other files such as `.toml`, we don't want to run linter against not `.py`, so we use where we configured filtering only for `.py` files no matter its location: root, tests, src, etc.
 
-Changed file can have the following statuses `added`, `modified`, or `deleted`. There is no reason to run a linter against deleted file as your workflow would simply fail, because there is no more that particular changed file in repo. So we need to configure what changes we consider to trigger linter.
+The changed file can have the following statuses `added`, `modified`, or `deleted`. There is no reason to run a linter against deleted files as your workflow would simply fail, because there is no more that particular changed file in the repo. So we need to configure what changes we consider to trigger linter.
 
 ![added|modified](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/artricle/img/added-modified.png?raw=true)
 
-I define the variable where I can find the output (the only `.py` files) from the previous filter. This variable would contain modified `.py` files, that I can further pass to a `flakeheaven`, `black`, and `isort`. By default, the output is disabled, and Paths Changes Filter allows to customize it: you can list the files in `.csv`, `.json` or in a `shell` mode. Linters accept files separated simply by space, so our choice here is `shell` mode.
+I define the variable where I can find the output (the only `.py` files) from the previous filter. This variable would contain modified `.py` files, that I can further pass to a `flakeheaven`, `black`, and `isort`. By default, the output is disabled, and Paths Changes Filter allows you to customize it: you can list the files in `.csv`, `.json`, or in a `shell` mode. Linters accept files separated simply by space, so our choice here is `shell` mode.
 
 ![list files shell](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-list-files-shell.png?raw=true)
 
@@ -122,7 +122,7 @@ The next and last step is to run the linter itself.
 
 ![run linter step](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-run-linter.png?raw=true)
 
-Before we run linter on changed files we run a check if there is an actual changes in `.py` files, if there are any `.py` files from the previous step than we can use.
+Before we run linter on changed files we run a check if there is an actual change in `.py` files, if there are any `.py` files from the previous step.
 
 ![check if there are .py files](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-check-for-changes.png?raw=true)
 
@@ -132,12 +132,12 @@ Next, using the before-mentioned output variable we can safety pass the content 
 
 ## Conclusion
 
-That's all I would like to share. I hope it is useful for you, and you can utilize this experience and knowledge. 
+That's all I would like to share. I hope it is useful for you, and that you can utilize this experience and knowledge. 
 
-I wish you to see this success checks every time you push your code :)
+I wish you to see these success checks every time you push your code :)
 
 ![success linter](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/linter-success.png?raw=true)
 
-If you have any questions feel free to ask in a comment section, I will do my best to provide compherensive answer for you. 
+If you have any questions feel free to ask in a comment section, I will do my best to provide a comprehensive answer for you. 
 
-Question to you: do you have a linter checks as a part of your CI/CD?
+Question to you: do you have linter checks as a part of your CI/CD?
