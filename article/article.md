@@ -191,5 +191,3 @@ I wish you to see these success checks every time you push your code :)
 If you have any questions feel free to ask in a comment section, I will do my best to provide a comprehensive answer for you. 
 
 Question to you: do you have linter checks as a part of your CI/CD?
-
-Todor1995!
