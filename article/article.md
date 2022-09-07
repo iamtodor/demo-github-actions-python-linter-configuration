@@ -79,16 +79,16 @@ dags/dummy.py
 
 So we need to disable `E0401` check from `pylint`.
 
+![flakeheaven disable import checks](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-import-checks.png?raw=true)
+
+We assume that the developer who writes the code and imports the libs is responsible for the writing reliable tests. So if the test does not pass it means that it's something with import or a code (logic) itself. Import check is not something we would like to put as a linter job.
+
 Also, there is another possible solution to disable this check is to include `# noqa: E0401` into the import statement. 
 
 ```python
 from airflow import DAG  # noqa: E0401
 from airflow.operators.dummy_operator import DummyOperator  # noqa: E0401
 ```
-
-![flakeheaven disable import checks](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-import-checks.png?raw=true)
-
-We assume that the developer who writes the code and imports the libs is responsible for the writing reliable tests. So if the test does not pass it means that it's something with import or a code (logic) itself. Import check is not something we would like to put as a linter job.
 
 #### Tweaks for airflow code
 
