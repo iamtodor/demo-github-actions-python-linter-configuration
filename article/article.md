@@ -29,8 +29,8 @@ Here are the linters and checks we are going to use:
 I would like to share how to configure it for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/github-actions-python-demo).
 
 We use `flakeheaven` as a `flake8` wrapper, which is very easy to configure in one single `pyproject.toml`. The whole `pyproject.toml` configuration file could be found in
-a [repo](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/pyproject.toml).
-
+a [demo repo](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/pyproject.toml).
+~
 ![pyproject.toml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-pyproject-config.png?raw=true)
 
 I would say the config file is self-explainable, so I will not stop here for a while. Just a few notes about tiny tweaks.
@@ -79,6 +79,13 @@ dags/dummy.py
 
 So we need to disable `E0401` check from `pylint`.
 
+Another possible solution to disable this check is to include `# noqa: E0401` to import statement. 
+
+```python
+from airflow import DAG  # noqa: E0401
+from airflow.operators.dummy_operator import DummyOperator  # noqa: E0401
+```
+
 ![flakeheaven disable import checks](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-import-checks.png?raw=true)
 
 We assume that the developer who writes the code and imports the libs is responsible for the writing reliable tests. So if the test does not pass it means that it's something with import or a code (logic) itself. Import check is not something we would like to put as a linter job.
@@ -125,13 +132,15 @@ This is about how we specify task order. The workaround here is to exclude `W010
 
 ![disable W0104](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-statement-no-effect-W0104.png?raw=true)
 
+More info about rules could be found on [flake8 rules page](https://www.flake8rules.com/). 
+
 ## GitHub workflow actions CI/CD configurations
 
 **Disclaimer**: author assumes you are familiar with [GitHub actions](https://github.com/features/actions).
 
 We configure GitHub Workflow to be triggered on every PR against the main (master) branch.
 
-The whole `py_linter.yml` config could be found in a [repo](https://github.com/iamtodor/github-actions-python-demo/blob/main/.github/workflows/py_linter.yml). I will walk you thru it step by step.
+The whole `py_linter.yml` config could be found in a [demo repo](https://github.com/iamtodor/github-actions-python-demo/blob/main/.github/workflows/py_linter.yml). I will walk you thru it step by step.
 
 ![py_linter.yml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-full.png?raw=true)
 
