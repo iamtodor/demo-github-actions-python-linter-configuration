@@ -79,7 +79,7 @@ dags/dummy.py
 
 So we need to disable `E0401` check from `pylint`.
 
-Another possible solution to disable this check is to include `# noqa: E0401` to import statement. 
+Also, there is another possible solution to disable this check is to include `# noqa: E0401` into the import statement. 
 
 ```python
 from airflow import DAG  # noqa: E0401
@@ -191,3 +191,5 @@ I wish you to see these success checks every time you push your code :)
 If you have any questions feel free to ask in a comment section, I will do my best to provide a comprehensive answer for you. 
 
 Question to you: do you have linter checks as a part of your CI/CD?
+
+Todor1995!
