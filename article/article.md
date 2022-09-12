@@ -85,7 +85,7 @@ So we need to disable `E0401` check from `pylint`.
 
 We assume that the developer who writes the code and imports the libs is responsible for the writing reliable tests. So if the test does not pass it means that it's something with the import or code (logic) itself. Thus the import check is not something we would like to put as a linter job.
 
-Also, there is another possible solution to disable this check by includung `# noqa: E0401` after the import statement. 
+Also, there is another possible solution to disable this check by including `# noqa: E0401` after the import statement. 
 
 ```python
 from airflow import DAG  # noqa: E0401
