@@ -1,6 +1,6 @@
-Hello everyone, I am a Data Platform or DataOps Engineer at [FreshBooks](https://www.freshbooks.com/). In this article I would like to share my experience on configure best practices in CI/CD pipelines. 
+Hello everyone, I am a DataOps Engineer at [FreshBooks](https://www.freshbooks.com/). In this article I would like to share my experience on configuration best practices for GitHub actions pipelines for linting.
 
-We had a linter configuration that developers could run before submitting a PR, which we wanted to integrate that checks into our regular CI/CD pipeline. This adoption would to eliminate potential errors, bugs, stylistic errors, and basically have the common code style across the team.
+Freshbooks DataOps team has a linter configuration that developers can run before submitting a PR. We had an idea to integrate lint checks into our regular CI/CD pipeline. This adoption would eliminate potential errors, bugs, stylistic errors. We will basically enforce the common code style across the team.
 
 FreshBooks uses GitHub as a home for our code base, so we would like to use it as much as possible. Recently I finished this configuration so the linter and its checks are now part of a GitHub actions CI/CD workflow.
 
