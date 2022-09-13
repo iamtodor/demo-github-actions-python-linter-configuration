@@ -28,12 +28,12 @@ Here are the linters and checks we are going to use:
 
 **Disclaimer**: author assumes you are familiar with the above-mentioned linters, tools, and checks.
 
-I would like to share how to configure them for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/demo-github-actions-python-configuration).
+I would like to share how to configure them for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/demo-github-actions-python-linter-configuration).
 
 We use `flakeheaven` as a `flake8` wrapper, which is very easy to configure in one single `pyproject.toml`. The whole `pyproject.toml` configuration file can be found in
-a [demo repo](https://github.com/iamtodor/demo-github-actions-python-configuration/blob/main/pyproject.toml).
+a [demo repo](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/pyproject.toml).
 
-![pyproject.toml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-pyproject-config.png?raw=true)
+![pyproject.toml](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/flakeheaven-pyproject-config.png?raw=true)
 
 I would say the config file is self-explainable, so I will not stop here for long. Just a few notes about tiny tweaks.
 
@@ -61,7 +61,7 @@ utils.py
 
 We are ok if not every module will be documented. We are also ok if not every function or method will be documented. We are not going to push documentation for documentation's sake. So we want to disable `C0114` and `C0116` checks from pylint.
 
-![flakeheaven disable docs](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-docs.png?raw=true)
+![flakeheaven disable docs](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/flakeheaven-disable-docs.png?raw=true)
 
 #### Import error
 
@@ -81,9 +81,9 @@ dags/dummy.py
 
 So we need to disable `E0401` check from `pylint`.
 
-![flakeheaven disable import checks](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-import-checks.png?raw=true)
+![flakeheaven disable import checks](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/flakeheaven-disable-import-checks.png?raw=true)
 
-We assume that the developer who writes the code and imports the libs is responsible for the writing reliable tests. So if the test does not pass it means that it's something with the import or code (logic) itself. Thus the import check is not something we would like to put as a linter job.
+We assume that the developer who writes the code and imports the libs is responsible for writing reliable tests. So if the test does not pass it means that it's something with the import or code (logic) itself. Thus, the import check is not something we would like to put as a linter job.
 
 Also, there is another possible solution to disable this check by including `# noqa: E0401` after the import statement. 
 
@@ -96,7 +96,7 @@ from airflow.operators.dummy_operator import DummyOperator  # noqa: E0401
 
 To configure code for Airflow DAGs there are also a few tweaks. Here is the dummy example `dummy.py`.
 
-![python dummy DAG](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/python-airflow-tasks-order.png?raw=true)
+![python dummy DAG](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/python-airflow-tasks-order.png?raw=true)
 
 If we run `flakeheaven` with the default configuration we would see the following error:
 
@@ -117,7 +117,7 @@ dags/dummy.py
 
 However, we want to keep each task specified in a new line, hence we need to disable `W503` from pycodestyle.
 
-![disable W503](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-diable-line-break-W503.png?raw=true)
+![disable W503](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/flakeheaven-diable-line-break-W503.png?raw=true)
 
 Next, with the default configuration we would get the next warning:
 
@@ -132,7 +132,7 @@ dags/dummy.py
 
 This is about how we specify task order. The workaround here is to exclude `W0104` from pylint.
 
-![disable W0104](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-disable-statement-no-effect-W0104.png?raw=true)
+![disable W0104](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/flakeheaven-disable-statement-no-effect-W0104.png?raw=true)
 
 More info about rules could be found on [flake8 rules page](https://www.flake8rules.com/). 
 
@@ -142,53 +142,53 @@ More info about rules could be found on [flake8 rules page](https://www.flake8ru
 
 We configure GitHub Workflow to be triggered on every PR against the main (master) branch.
 
-The whole `py_linter.yml` config can be found in a [demo repo](https://github.com/iamtodor/demo-github-actions-python-configuration/blob/main/.github/workflows/py_linter.yml). I will walk you through it step by step.
+The whole `py_linter.yml` config can be found in a [demo repo](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/.github/workflows/py_linter.yml). I will walk you through it step by step.
 
-![py_linter.yml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-full.png?raw=true)
+![py_linter.yml](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-full.png?raw=true)
 
 ### When to run it
 
 We are interested in running linter only when a PR has `.py` files. For instance, when we update `README.md` there is no sense in running a python linter.
 
-![configure run workflow on PRs and push](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-py-push-pr.png?raw=true)
+![configure run workflow on PRs and push](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-py-push-pr.png?raw=true)
 
 ### What files does it run against
 
 We are interested in running a linter only against the modified files. Let's say, we take a look at the provided repo, if I update `dags/dummy.py` I don't want to waste time and resources running the linter against `main.py`. For this purpose we use [Paths Filter GitHub Action](https://github.com/dorny/paths-filter), which is very flexible.
 
-![Paths Filter GitHub Action](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-paths-filter.png?raw=true)
+![Paths Filter GitHub Action](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-paths-filter.png?raw=true)
 
 If we have modified a `.py` file and any other files such as `.toml` in one PR, we don't want to run a linter against the non-python files, so we configure filtering only for `.py` files no matter the location: root, tests, src, etc.
 
-The changed file can have the following statuses: `added`, `modified`, or `deleted`. There is no reason to run the linter against deleted files as your workflow would simply fail, because that particular changed file is no longer in the repo. So we need to configure what changes we consider to trigger the linter.
+The changed file can have the following statuses: `added`, `modified`, or `deleted`. There is no reason to run the linter against deleted files as your workflow would simply fail, because that particular changed file is no longer in the repo. So we need to configure what changes we consider triggering the linter.
 
-![added|modified](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-added-modified.png?raw=true)
+![added|modified](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-added-modified.png?raw=true)
 
 I define the variable where I can find the output (only the `.py` files) from the previous filter. This variable would contain modified `.py` files that I can further pass to a `flakeheaven`, `black`, and `isort`. By default, the output is disabled and "Paths Changes Filter" allows you to customize it: you can list the files in `.csv`, `.json`, or in a `shell` mode. Linters accept files separated simply by space, so our choice here is `shell` mode.
 
-![list files shell](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-list-files-shell.png?raw=true)
+![list files shell](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-list-files-shell.png?raw=true)
 
 ### Run linter itself
 
 The next and last step is to run the linter itself.
 
-![run linter step](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-run-linter-step.png?raw=true)
+![run linter step](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-run-linter-step.png?raw=true)
 
 Before we run the linter on changed files we run a check to see if there are actual changes in `.py` files by checking if there are any `.py` files from the previous step.
 
-![check if there are .py files](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-run-linter-check-for-changes.png?raw=true)
+![check if there are .py files](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-run-linter-check-for-changes.png?raw=true)
 
 Next, using the before-mentioned output variable we can safety pass the content from this `steps.filter.outputs.py_scripts_filter_files` variable to linter.
 
-![linter commands](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-run-linter-commands.png?raw=true)
+![linter commands](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/gh-config-run-linter-commands.png?raw=true)
 
 ## Conclusion
 
 That's all I would like to share. I hope it is useful for you, and that you can utilize this experience and knowledge. 
 
-I wish you to see these success checks every time you push your code :)
+I wish you to see these successful checks every time you push your code :)
 
-![success linter](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/linter-success.png?raw=true)
+![success linter](https://github.com/iamtodor/demo-github-actions-python-linter-configuration/blob/main/article/img/linter-success.png?raw=true)
 
 If you have any questions feel free to ask in a comment section, I will do my best to provide a comprehensive answer for you. 
 
