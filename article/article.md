@@ -11,9 +11,9 @@ This article has two major parts: the first one is linter configuration, and the
     + [Documentation](#documentation)
     + [Import error](#import-error)
     + [Tweaks for airflow code](#tweaks-for-airflow-code)
-- [GitHub workflow actions CI/CD configurations](#github-workflow-actions-ci-cd-configurations)
+- [GitHub workflow actions CI/CD configurations](#github-workflow-actions-cicd-configurations)
   * [When to run it](#when-to-run-it)
-  * [What files does it run against to](#what-files-does-it-run-against-to)
+  * [What files does it run against](#what-files-does-it-run-against)
   * [Run linter itself](#run-linter-itself)
 - [Conclusion](#conclusion)
 
@@ -28,11 +28,11 @@ Here are the linters and checks we are going to use:
 
 **Disclaimer**: author assumes you are familiar with the above-mentioned linters, tools, and checks.
 
-I would like to share how to configure them for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/github-actions-python-demo).
+I would like to share how to configure them for the python project. I prepared a full [github actions python configuration demo repository](https://github.com/iamtodor/demo-github-actions-python-configuration).
 
 We use `flakeheaven` as a `flake8` wrapper, which is very easy to configure in one single `pyproject.toml`. The whole `pyproject.toml` configuration file can be found in
-a [demo repo](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/pyproject.toml).
-~
+a [demo repo](https://github.com/iamtodor/demo-github-actions-python-configuration/blob/main/pyproject.toml).
+
 ![pyproject.toml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/flakeheaven-pyproject-config.png?raw=true)
 
 I would say the config file is self-explainable, so I will not stop here for long. Just a few notes about tiny tweaks.
@@ -142,7 +142,7 @@ More info about rules could be found on [flake8 rules page](https://www.flake8ru
 
 We configure GitHub Workflow to be triggered on every PR against the main (master) branch.
 
-The whole `py_linter.yml` config can be found in a [demo repo](https://github.com/iamtodor/github-actions-python-demo/blob/main/.github/workflows/py_linter.yml). I will walk you through it step by step.
+The whole `py_linter.yml` config can be found in a [demo repo](https://github.com/iamtodor/demo-github-actions-python-configuration/blob/main/.github/workflows/py_linter.yml). I will walk you through it step by step.
 
 ![py_linter.yml](https://github.com/iamtodor/github-actions-python-configuration-demo/blob/main/article/img/gh-config-full.png?raw=true)
 
