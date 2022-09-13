@@ -39,7 +39,7 @@ I would say the config file is self-explainable, so I will not stop here for lon
 
 ### Disable unwanted checks
 
-A few checks that we don't want to see complaits about:
+A few checks that we don't want to see complaints about:
 
 #### Documentation
 
