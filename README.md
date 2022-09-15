@@ -1,5 +1,1 @@
-```
-python -m flakeheaven lint .
-python -m black --check .
-python -m isort --check .
-```
+This is the demo repository for the article [Configuring python linting to be part of CI/CD using GitHub actions](https://dev.to/freshbooks/configuring-python-linting-to-be-part-of-cicd-using-github-actions-1731)

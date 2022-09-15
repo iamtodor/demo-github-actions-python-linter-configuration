@@ -1,1 +1,1 @@
-Screen were made with https://carbon.now.sh/ service. Base 16 dark, yellow theme
+Screens were made with https://carbon.now.sh/ service. Configuration is base 16 dark, yellow theme.
