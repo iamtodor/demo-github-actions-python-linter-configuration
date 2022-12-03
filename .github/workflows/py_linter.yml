@@ -28,7 +28,7 @@ jobs:
           python -m pip install pip==22.2.2
           pip install -r requirements-lint.txt
       - name: Check for python file changes
-        uses: getsentry/paths-filter@v2
+        uses: dorny/paths-filter@v2
         id: filter
         with:
           list-files: 'shell'
